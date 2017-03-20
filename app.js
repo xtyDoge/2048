@@ -43,7 +43,8 @@ Game.prototype.moveLeft = function(){
 	for(var i=0;i<=3;i++){
 		for(var j=1;j<=3;j++){//每个数的左侧有东西吗
 			for(var k=j-1;k>=0;k--){
-				//如果左侧出现了一个不为0的数
+				if (this.gameBoard[i][j] != 0) {
+					//如果左侧出现了一个不为0的数
 				if (this.gameBoard[i][k] != 0) {
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
@@ -65,11 +66,12 @@ Game.prototype.moveLeft = function(){
 					
 				}
 				//左侧全都是0
-				if (k == 0 && this.gameBoard[i][k] == 0 && this.gameBoard[i][j] != 0) {
+				if (k == 0 && this.gameBoard[i][k] == 0) {
 					this.gameBoard[i][k] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
-				}
+					}
+				}				
 			}
 		}
 	}
@@ -86,7 +88,8 @@ Game.prototype.moveRight = function(){
 	for(var i=0;i<=3;i++){
 		for(var j=2;j>=0;j--){//每个数的右侧有东西吗
 			for(var k=j+1;k<=3;k++){
-				//如果右侧出现了一个不为0的数
+				if (this.gameBoard[i][j] != 0) {
+					//如果右侧出现了一个不为0的数
 				if (this.gameBoard[i][k] != 0) {
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
@@ -107,11 +110,13 @@ Game.prototype.moveRight = function(){
 					//真的出现了不为0的数 移动就完成了 break;
 				}
 				//左侧全都是0
-				if (k == 3 && this.gameBoard[i][k] == 0 && this.gameBoard[i][j] != 0) {
+				if (k == 3 && this.gameBoard[i][k] == 0) {
 					this.gameBoard[i][k] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
 				}
+				}
+				
 			}
 		}
 	}
@@ -128,7 +133,8 @@ Game.prototype.moveUp = function(){
 	for(var j=0;j<=3;j++){
 		for(var i=1;i<=3;i++){//每个数的上侧有东西吗
 			for(var k=i-1;k>=0;k--){
-				//如果上侧出现了一个不为0的数
+				if (this.gameBoard[i][j] != 0) {
+					//如果上侧出现了一个不为0的数
 				if (this.gameBoard[k][j] != 0) {
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
@@ -150,11 +156,13 @@ Game.prototype.moveUp = function(){
 				
 				}
 				//左侧全都是0
-				if (k == 0 && this.gameBoard[k][j] == 0 && this.gameBoard[i][j] != 0) {
+				if (k == 0 && this.gameBoard[k][j] == 0) {
 					this.gameBoard[k][j] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
+					}
 				}
+				
 			}
 		}
 	}
@@ -171,7 +179,8 @@ Game.prototype.moveDown = function(){
 		for(var i=2;i>=0;i--){//每个数的下侧有东西吗
 			for(var k=i+1;k<=3;k++){
 				//如果上侧出现了一个不为0的数
-				if (this.gameBoard[k][j] != 0) {
+				if (this.gameBoard[i][j] != 0) {
+					if (this.gameBoard[k][j] != 0) {
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
 						this.gameBoard[k][j] *= 2;
@@ -191,11 +200,12 @@ Game.prototype.moveDown = function(){
 					//真的出现了不为0的数 移动就完成了 break;
 				}
 				//左侧全都是0
-				if (k == 3 && this.gameBoard[k][j] == 0 && this.gameBoard[i][j] != 0) {
+				if (k == 3 && this.gameBoard[k][j] == 0) {
 					this.gameBoard[k][j] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
-				}
+					}
+				}				
 			}
 		}
 	}
