@@ -222,20 +222,12 @@ Game.prototype.moveDown = function(){
 
 Game.prototype.show = function(){
 	var output = [];
-	var outputObj = {};
-	var outputObjArr = [];
 	for(var i = 0; i < this.gameBoard.length;i++){
 		console.log(this.gameBoard[i]);
 		output = output.concat(this.gameBoard[i]);
 	}
-	for(i =0;i < output.length;i++){
-		outputObj.index = i;
-		outputObj.content = output[i];
-		outputObjArr.push(outputObj);
-		outputObj = {};
-	}
 	console.log('PRINT END');
-	return outputObjArr;
+	return output;
 };
 
 var game1 = new Game();
