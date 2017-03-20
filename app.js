@@ -49,18 +49,23 @@ Game.prototype.moveLeft = function(){
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
 						this.gameBoard[i][k] *= 2;
 						this.gameBoard[i][j] = 0;
+						this.moveFlag = true;
+						break;
 					}
 					//数字不一样的话 移动
 					if (this.gameBoard[i][j] != this.gameBoard[i][k]) {
-						this.gameBoard[i][k+1] = this.gameBoard[i][j];
-						this.gameBoard[i][j] = 0;
+						if (k+1 != j) {
+							this.gameBoard[i][k+1] = this.gameBoard[i][j];
+							this.gameBoard[i][j] = 0;
+							this.moveFlag = true;
+						}				
+						break;
 					}
-					//真的出现了不为0的数 移动就完成了 break
-					this.moveFlag = true;
-					break;
+					//真的出现了不为0的数 移动就完成了 break;
+					
 				}
 				//左侧全都是0
-				if (k == 0) {
+				if (k == 0 && this.gameBoard[i][k] == 0 && this.gameBoard[i][j] != 0) {
 					this.gameBoard[i][k] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
@@ -87,18 +92,22 @@ Game.prototype.moveRight = function(){
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
 						this.gameBoard[i][k] *= 2;
 						this.gameBoard[i][j] = 0;
+						this.moveFlag = true;
+						break;
 					}
 					//数字不一样的话 移动
 					if (this.gameBoard[i][j] != this.gameBoard[i][k]) {
-						this.gameBoard[i][k-1] = this.gameBoard[i][j];
-						this.gameBoard[i][j] = 0;
+						if (k-1 != j) {
+							this.gameBoard[i][k-1] = this.gameBoard[i][j];
+							this.gameBoard[i][j] = 0;
+							this.moveFlag = true;
+						}
+						break;
 					}
-					//真的出现了不为0的数 移动就完成了 break
-					this.moveFlag = true;
-					break;
+					//真的出现了不为0的数 移动就完成了 break;
 				}
 				//左侧全都是0
-				if (k == 3) {
+				if (k == 3 && this.gameBoard[i][k] == 0 && this.gameBoard[i][j] != 0) {
 					this.gameBoard[i][k] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
@@ -125,18 +134,23 @@ Game.prototype.moveUp = function(){
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
 						this.gameBoard[k][j] *= 2;
 						this.gameBoard[i][j] = 0;
+						this.moveFlag = true;
+						break;
 					}
 					//数字不一样的话 移动
 					if (this.gameBoard[i][j] != this.gameBoard[k][j]) {
-						this.gameBoard[k+1][j] = this.gameBoard[i][j];
-						this.gameBoard[i][j] = 0;
+						if (k+1 != i) {
+							this.gameBoard[k+1][j] = this.gameBoard[i][j];
+							this.gameBoard[i][j] = 0;
+							this.moveFlag = true;
+						}
+						break;
 					}
-					//真的出现了不为0的数 移动就完成了 break
-					this.moveFlag = true;
-					break;
+					//真的出现了不为0的数 移动就完成了 break;
+				
 				}
 				//左侧全都是0
-				if (k == 0) {
+				if (k == 0 && this.gameBoard[k][j] == 0 && this.gameBoard[i][j] != 0) {
 					this.gameBoard[k][j] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
@@ -162,18 +176,22 @@ Game.prototype.moveDown = function(){
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
 						this.gameBoard[k][j] *= 2;
 						this.gameBoard[i][j] = 0;
+						this.moveFlag = true;
+						break;
 					}
 					//数字不一样的话 移动
 					if (this.gameBoard[i][j] != this.gameBoard[k][j]) {
-						this.gameBoard[k-1][j] = this.gameBoard[i][j];
-						this.gameBoard[i][j] = 0;
+						if (k-1 != i) {
+							this.gameBoard[k-1][j] = this.gameBoard[i][j];
+							this.gameBoard[i][j] = 0;
+							this.moveFlag = true;
+						}
+						break;
 					}
-					//真的出现了不为0的数 移动就完成了 break
-					this.moveFlag = true;
-					break;
+					//真的出现了不为0的数 移动就完成了 break;
 				}
 				//左侧全都是0
-				if (k == 3) {
+				if (k == 3 && this.gameBoard[k][j] == 0 && this.gameBoard[i][j] != 0) {
 					this.gameBoard[k][j] = this.gameBoard[i][j];
 					this.gameBoard[i][j] = 0;
 					this.moveFlag = true;
@@ -198,12 +216,4 @@ Game.prototype.show = function(){
 
 var game1 = new Game();
 game1.newGame();
-game1.show();
-game1.moveLeft();
-game1.show();
-game1.moveRight();
-game1.show();
-game1.moveUp();
-game1.show();
-game1.moveDown();
 game1.show();
