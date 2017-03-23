@@ -3,6 +3,7 @@ var Game = function () {
 	//游戏数组gameBoard
 	this.gameBoard = [];
 	this.moveFlag = false;
+	this.score = 0;
 	//以下为特权方法 类内调用
 
 	this.addNewNum = function(){
@@ -26,6 +27,7 @@ var Game = function () {
 //初始化游戏数组
 Game.prototype.newGame = function(){
 	//初始化 4*4数组 置为全0
+	this.gameBoard = [];
 	for (var i = 0;i <= 3;i++) {
 		this.gameBoard.push([]);
 		for(var j = 0;j <= 3; j++){
@@ -36,6 +38,7 @@ Game.prototype.newGame = function(){
 	this.addNewNum();
 	this.addNewNum();
 };
+
 
 //向左移动
 Game.prototype.moveLeft = function(){
@@ -49,6 +52,7 @@ Game.prototype.moveLeft = function(){
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
 						this.gameBoard[i][k] *= 2;
+						this.score += this.gameBoard[i][k];
 						this.gameBoard[i][j] = 0;
 						this.moveFlag = true;
 						break;
@@ -95,6 +99,7 @@ Game.prototype.moveRight = function(){
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[i][k]) {
 						this.gameBoard[i][k] *= 2;
+						this.score += this.gameBoard[i][k];
 						this.gameBoard[i][j] = 0;
 						this.moveFlag = true;
 						break;
@@ -140,6 +145,7 @@ Game.prototype.moveUp = function(){
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
 						this.gameBoard[k][j] *= 2;
+						this.score += this.gameBoard[k][j];
 						this.gameBoard[i][j] = 0;
 						this.moveFlag = true;
 						break;
@@ -186,6 +192,7 @@ Game.prototype.moveDown = function(){
 					//数字一样的话 合并
 					if (this.gameBoard[i][j] == this.gameBoard[k][j]) {
 						this.gameBoard[k][j] *= 2;
+						this.score += this.gameBoard[k][j];
 						this.gameBoard[i][j] = 0;
 						this.moveFlag = true;
 						break;
@@ -219,7 +226,12 @@ Game.prototype.moveDown = function(){
 	return this.gameBoard;
 };
 
+//获取分数
+Game.prototype.getScore = function(){
+	return this.score;
+};
 
+//输出接口
 Game.prototype.show = function(){
 	var output = [];
 	var outputObj = {};
@@ -241,3 +253,5 @@ Game.prototype.show = function(){
 var game1 = new Game();
 game1.newGame();
 game1.show();
+
+

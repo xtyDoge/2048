@@ -1,16 +1,35 @@
-//格子的组件
-var gamePad = game1.show();
-console.log(gamePad);
 
-var compcol = {
-    template:"<div class=\"col\"><div class=\"col-color\">{{number}}</div></div>",
-    props:['number']
-};
+var compcol ={
+    template:'<div class=\"col\"><div :class="[stylesheet]" class=\"col-color\">{{number}}</div></div>',
+    props:['number'],
+    data:function(){
+         return {stylesheet:0};
+    },
+    // beforeUpdate:function(){
+    //   this.getClass(this.number);
+
+    // },
+    created:function(){
+      this.getClass(this.number);
+    },
+    methods:{
+      getClass:function(i){
+        var styleDic = {'0':'zero','2':'two','4':'four','8':'eight','16':'sixteen','32':'thirtytwo','64':'sixtyfour','128':'ohte','256':'thfs','512':'fht','1024':'ottf','2048':'ttfe'};
+        //return {stylesheet:styleDic[this.number]};  
+        this.stylesheet = styleDic[i];
+      }
+    }
+  };
+
 
 var Game = new Vue({
     el:"#app",
     data:{
-      items:game1.show()
+      items:game1.show(),
+      score:game1.getScore()
+    },
+    computed:{
+      
     },
     components:{
       'col-component':compcol
@@ -19,62 +38,27 @@ var Game = new Vue({
       goLeft:function(){
          game1.moveLeft();
          this.items = game1.show();
+         this.score = game1.getScore();
       },
       goRight:function(){
          game1.moveRight();
          this.items = game1.show();
+         this.score = game1.getScore();
       },
       goUp:function(){
          game1.moveUp();
          this.items = game1.show();
+         this.score = game1.getScore();
       },
       goDown:function(){
          game1.moveDown();
          this.items = game1.show();
+         this.score = game1.getScore();
+      },
+      newGame:function(){
+        game1.newGame();
+        this.items = game1.show();
+        this.score = game1.getScore();
       }
     }
   });
-
-
-
-// $(window).on("swipeLeft",function() {
-//   game1.moveLeft();
-//   game1.show();
-// });
-// $(window).on("swipeRight",function() {
-//   game1.moveRight();
-//   game1.show();
-// });
-// $(window).on("swipeUp",function() {
-//   game1.moveUp();
-//   game1.show();
-// });
-// $(window).on("swipeDown",function() {
-//   game1.moveDown();
-//   game1.show();
-// });
-
-// $(window).on("keydown",function() {
-//   switch (event.keyCode) {
-//     case 38:
-//       game1.moveUp();
-//       gamePad = game1.show();
-//       break;
-//     case 40:
-//       game1.moveDown();
-//       gamePad = game1.show();
-//       break;
-//     case 37:
-//       game1.moveLeft();
-//       gamePad = game1.show();
-//       break;
-//     case 39:
-//       game1.moveRight();
-//       gamePad = game1.show();
-//       break;
-//     default:
-//       console.log("没这个操作")
-//       break;
-//   }
-// });
-
