@@ -24,20 +24,6 @@
 		.dashboard>.menu{margin-right: 10px;}
 
 
-		.slide-fade-enter-active {
-		  transition: all 1s ease;
-		}
-		.slide-fade-leave-active {
-		  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-		}
-		.slide-fade-enter, .slide-fade-leave-active {
-		  transform: translateX(10px);
-		  opacity: 0;
-		}
-		.slide-fade-move {
-		  transition: transform 1s;
-		}
-
 		.col-color.zero{text-indent: -9999px;}
 		.col-color.two{color: #776e65;background: #eee4da;}
 		.col-color.four{color: #776e65;background: #ede0c9;}
@@ -86,8 +72,7 @@
 	 		<div class="goRight" @click="goRight"></div>
 	 		<div class="goUp" @click="goUp"></div>
 	 		<div class="goDown" @click="goDown"></div>
-			<transition-group  name="slide-fade" mode="out-in" enter-active-class="animated tada"
-				    leave-active-class="animated bounceOutRight"
+			<transition-group  name="slide-fade"
 				     tag="div">
 	 			<col-component v-for="item in items" :key="item.index"  :number="item.content"></col-component>
 	 		 </transition-group>

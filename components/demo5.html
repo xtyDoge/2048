@@ -55,7 +55,7 @@
       this.items.splice(this.randomIndex(), 1)
     },
     shuffle: function () {
-      	this.items.push(parseInt(Math.random()*10));
+      	this.items.splice(this.items.length-2,0,1);
  
     }
   }

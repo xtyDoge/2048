@@ -5,10 +5,9 @@ var compcol ={
     data:function(){
          return {stylesheet:0};
     },
-    // beforeUpdate:function(){
-    //   this.getClass(this.number);
-
-    // },
+    beforeUpdate:function(){
+      this.getClass(this.number);
+    },
     created:function(){
       this.getClass(this.number);
     },
