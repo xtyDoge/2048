@@ -1,3 +1,15 @@
+ //localStorage 本地存储api 存储初始化信息
+var Util = (function(){
+	var prefix = "html5_game_"; //加一个前缀，防止key val在全局作用域重叠
+	var storageGetter = function(key){return localStorage.getItem(prefix + key);};
+	var storageSetter = function(key,val){return localStorage.setItem(prefix + key, val);};
+		return {
+			storageGetter:storageGetter,
+			storageSetter:storageSetter
+		};})();
+				
+
+
 var Game = function () {
 	//安全声明
 	//游戏数组gameBoard
@@ -27,6 +39,7 @@ var Game = function () {
 //初始化游戏数组
 Game.prototype.newGame = function(){
 	//初始化 4*4数组 置为全0
+	this.score = 0;
 	this.gameBoard = [];
 	for (var i = 0;i <= 3;i++) {
 		this.gameBoard.push([]);
@@ -227,8 +240,38 @@ Game.prototype.moveDown = function(){
 };
 
 //获取分数
-Game.prototype.getScore = function(){
-	return this.score;
+Game.prototype.getScoreRank = function(){
+	if (!Util.storageGetter("record")) {
+		Util.storageSetter("record",this.score); 
+	}
+	if (this.score > Util.storageGetter("record")) {
+		Util.storageSetter("record",this.score);
+	}
+	return {score:this.score,record:Util.storageGetter("record")};
+};
+
+//游戏是否结束？
+Game.prototype.isFailed = function(){
+	for(var i=0;i<=3;i++){
+		for(var j=0;j<=3;j++){
+			if (this.gameBoard[i][j] == 0) {
+				return false;
+			}
+		}
+	}
+	for(var i=0;i<=3;i++){
+		for(var j=0;j<=3;j++){
+			if (i-1 >=0 && j-1 >=0 && j+1<=3 && i+1<=3) {
+				if (this.gameBoard[i][j] == this.gameBoard[i-1][j] || this.gameBoard[i][j] == this.gameBoard[i+1][j] || this.gameBoard[i][j] == this.gameBoard[i][j+1] || this.gameBoard[i][j] == this.gameBoard[i][j-1]) {
+					return false;
+				}
+			}
+		}
+	}
+	if (this.gameBoard[0][0] == this.gameBoard[1][0] || this.gameBoard[0][0] == this.gameBoard[0][1] || this.gameBoard[3][3] == this.gameBoard[2][3] || this.gameBoard[3][3] == this.gameBoard[3][2]) {
+		return false;
+	}
+	return true;
 };
 
 //输出接口

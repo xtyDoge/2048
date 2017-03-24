@@ -23,8 +23,8 @@
 		.dashboard>.menu,.dashboard>.ranking{width: 94px;height: 40px;border-radius: 4px;background:#eb9961;display: inline-block;display: inline-block;float: left;color: #fff;line-height: 40px;text-align: center;}
 		.dashboard>.menu{margin-right: 10px;}
 
-
-		.col-color.zero{text-indent: -9999px;}
+		.two,.four,.eight,.sixteen,.thirtytwo,.sixtyfour,.ohte{transition: background-color .8s;}
+		.col-color.zero{text-indent: -100px;overflow: hidden;}
 		.col-color.two{color: #776e65;background: #eee4da;}
 		.col-color.four{color: #776e65;background: #ede0c9;}
 		.col-color.eight{color:#fff ;background: #f1b07d;}
@@ -37,6 +37,7 @@
 		.goRight{position: absolute;top: 30%;bottom: 30%;left: 50%;right: 0px;z-index: 2;}
 		.goUp{position: absolute;top: 0;bottom: 70%;left: 0;right: 0;z-index: 2;}
 		.goDown{position: absolute;top: 70%;bottom: 0;left: 0;right: 0;z-index: 2;}
+		.failed{position: absolute;z-index: 3;top: 0px;bottom: 0px;left: 0px;right: 0px;opacity: 0.7;line-height: 339px;text-align: center;background: #272822;font-size: 40px;color: #c80000;}
 	</style>
 	<script src="js/Zepto.js"></script>
 	<script type="text/javascript" src="app.js"></script>
@@ -57,7 +58,7 @@
 				</div>
 				<div class="highscore">
 					<span>Record</span>
-					<span style="font-size:24px;font-weight:bold">1108</span>
+					<span style="font-size:24px;font-weight:bold">{{record}}</span>
 				</div>
 				<div class="menu">Menu</div>
 				<div class="ranking" @click="newGame">New Game</div>
@@ -72,8 +73,12 @@
 	 		<div class="goRight" @click="goRight"></div>
 	 		<div class="goUp" @click="goUp"></div>
 	 		<div class="goDown" @click="goDown"></div>
+	 		<div class="failed" v-show="isFailed">
+				 	You Failed!
+				 </div>
 			<transition-group  name="slide-fade"
 				     tag="div">
+				 
 	 			<col-component v-for="item in items" :key="item.index"  :number="item.content"></col-component>
 	 		 </transition-group>
 		</div>

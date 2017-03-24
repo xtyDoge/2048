@@ -6,7 +6,11 @@ var compcol ={
          return {stylesheet:0};
     },
     beforeUpdate:function(){
+      console.log("before")
       this.getClass(this.number);
+    },
+    updated:function() {
+      console.log("update");
     },
     created:function(){
       this.getClass(this.number);
@@ -25,7 +29,9 @@ var Game = new Vue({
     el:"#app",
     data:{
       items:game1.show(),
-      score:game1.getScore()
+      score:game1.getScoreRank().score,
+      record:game1.getScoreRank().record,
+      isFailed:game1.isFailed()
     },
     computed:{
       
@@ -34,30 +40,32 @@ var Game = new Vue({
       'col-component':compcol
     },
     methods:{
+      updateCondition:function(){
+        this.items = game1.show();
+        this.score = game1.getScoreRank().score;
+        this.record = game1.getScoreRank().record;
+        this.isFailed =  game1.isFailed();
+      },
       goLeft:function(){
          game1.moveLeft();
-         this.items = game1.show();
-         this.score = game1.getScore();
+         this.updateCondition();       
       },
       goRight:function(){
          game1.moveRight();
-         this.items = game1.show();
-         this.score = game1.getScore();
+          this.updateCondition(); 
       },
       goUp:function(){
          game1.moveUp();
-         this.items = game1.show();
-         this.score = game1.getScore();
+          this.updateCondition(); 
       },
       goDown:function(){
          game1.moveDown();
-         this.items = game1.show();
-         this.score = game1.getScore();
+          this.updateCondition(); 
       },
       newGame:function(){
         game1.newGame();
-        this.items = game1.show();
-        this.score = game1.getScore();
+         this.updateCondition(); 
+
       }
     }
   });
